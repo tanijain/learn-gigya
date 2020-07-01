@@ -1,0 +1,123 @@
+<html>
+    <head>
+        <title>Application 1</title>
+        
+        <script type="text/javascript" lang="javascript" src="http://cdn.gigya.com/JS/socialize.js?apikey=SITE_API_KEY"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <style>
+            .topnav {
+                background-color: #333;
+                overflow: hidden;
+                }
+
+            /* Style the links inside the navigation bar */
+            .topnav a {
+                float: left;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 17px;
+            }
+
+            /* Change the color of links on hover */
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+            /* Add a color to the active/current link */
+            .topnav a.active {
+                background-color: #4CAF50;
+                color: white;
+            }   
+
+        </style>
+        
+        <script>
+            $(document).ready(function(){
+                
+                $('.logged-in').fadeOut(function () {
+					$('.logged-out').fadeIn();
+					});
+                
+                gigya.accounts.getAccountInfo({callback:function (response) {
+				if (response.errorCode == 0) {
+					  $('#profile-name').text("Welcome back " + response.profile.firstName + "!");
+					  $('.logged-out').fadeOut(function () {
+							  $('.logged-in').fadeIn();
+					  });
+                }
+                }});
+
+                gigya.socialize.addEventHandlers({
+		            onLogin: loginHandler,
+				    onLogout: logoutHandler
+	            });
+
+            })
+            
+            function login(){
+                var params = {
+                    screenSet: 'Default-RegistrationLogin',
+                    startScreen: 'gigya-login-screen'
+                };
+                gigya.accounts.showScreenSet(params);
+            }
+
+            function register(){
+                var params = {
+                    screenSet: 'Default-RegistrationLogin',
+                    startScreen: 'gigya-register-screen'
+                };
+                gigya.accounts.showScreenSet(params);
+            }
+
+            function profile_update(){
+                var params = {
+                    screenSet: 'Default-ProfileUpdate',
+                    startScreen: 'gigya-update-profile-screen'
+                };
+                gigya.accounts.showScreenSet(params);
+            }
+
+            function subscribe(){
+                var params = {
+                    screenSet: 'Default-LiteRegistration',
+                    startScreen: 'gigya-subscribe-with-email-screen'
+                };
+                gigya.accounts.showScreenSet(params);
+            }
+
+            function logout(){
+                gigya.accounts.logout();
+            }
+            
+            function loginHandler(response){
+                var profile = response['user']; 
+		        $('#profile-name').text("Welcome " + profile.firstName + "!"); 
+		        $('.logged-out').fadeOut(function () {
+			    $('.logged-in').fadeIn(); });
+            }
+
+            function logoutHandler(){
+                $('a#userFirstname').text('');
+			    $('.logged-in').fadeOut(function () {
+				$('.logged-out').fadeIn(); })
+            }
+        </script>
+    </head>
+
+    <body>
+        <div class="topnav">
+            <a class="active" href="#home">Application 1</a>
+            <a href="#" class="logged-out" onclick="login()">Login</a>
+            <a href="#" class="logged-out" onclick="register()">Register</a>
+            <a href="#" class="logged-out" onclick="subscribe()">Subscribe</a>
+            <a href="#" id="profile-nav" class="logged-in" onclick="profile_update()">Profile Update</a>
+            <a href="#" id="profile-name" class="logged-in">User</a>
+            <a href="#" class="logged-in" onclick="logout()">Logout</a>
+        </div>
+    </body>
+</html>

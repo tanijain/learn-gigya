@@ -1,0 +1,10 @@
+{
+    "name": "gigya_testing",
+    "description": "Provide you a quick testing environment for gigya flows",
+    "authors": "TanishqJain",
+    "version": "1.0.0",
+    "dependencies": {
+        "express": "^4.16.4",
+        "path": "0.12.7"
+    }
+}
