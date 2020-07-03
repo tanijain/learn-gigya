@@ -1,0 +1,72 @@
+<html lang="en">
+    <head>
+        <title>Application 3</title>
+        <script type="text/javascript" lang="javascript" src="https://cdns.gigya.com/JS/gigya.js?apiKey=[Your_API_Key]"></script>
+        <script type="text/javascript" lang="javascript" src="https://cdns.gigya.com/JS/gigya.oidc.js?apiKey=[Your_API_Key]">
+	{
+        "loginURL": "login.html",
+        "consentURL": "consent.html",
+        "errorURL": "error.html"
+    }
+    </script>
+  
+
+  <style>
+    @keyframes rotate360 {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    html {
+        font-size: 87.5%;
+        height: 100%;
+    }
+
+    body {
+        height: 100%;
+        margin: 0;
+    }
+
+    #loading-spinner {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #loading-spinner:before,
+    #loading-spinner:after {
+            content: '';
+            display: block;
+            height: 4.5rem;
+            width: 4.5rem;
+            border-radius: 4.2rem;
+            position: absolute;
+            border-width: 0.36rem;
+            border-style: solid;
+            }
+        
+            #loading-spinner:before {
+                border-color: #DDDDDD;
+            }
+        
+            #loading-spinner:after {
+                animation: rotate360 0.6s linear infinite;
+                border-color: #444444 transparent transparent;
+                z-index: 1;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="loading-spinner">
+    </body>
+
+</html>
