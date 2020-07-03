@@ -93,6 +93,10 @@
             function logout(){
                 gigya.accounts.logout();
             }
+
+            function back(){
+                window.location.href = "https://learn-gigya.herokuapp.com/"
+            }
             
             function loginHandler(response){
                 var profile = response['user']; 
@@ -118,6 +122,7 @@
             <a href="#" id="profile-nav" class="logged-in" onclick="profile_update()">Profile Update</a>
             <a href="#" id="profile-name" class="logged-in">User</a>
             <a href="#" class="logged-in" onclick="logout()">Logout</a>
+            <a href="#" onclick="back()">Back</a>
         </div>
     </body>
 </html>
