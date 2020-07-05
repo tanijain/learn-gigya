@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>Login</title>>
+    <script type="text/javascript" src="https://cdns.gigya.com/js/gigya.js?apiKey=3_OpyagoDK701Lv3rCsHO3Pwsw8GU3Zr0T60XRNueQAiQkEMO-NEUT--9UnVfcub-m"></script>
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+        function redirectToProxy() {
+            var url = gigya.utils.URL.addParamsToURL("proxy.html",{
+                mode: 'afterLogin'
+            });
+            window.location.href = url;
+        }
+        gigya.socialize.addEventHandlers({
+            onLogin: function() {
+                redirectToProxy();
+            }
+        });
+        gigya.accounts.showScreenSet({
+                screenSet: 'Default-RegistrationLogin',
+                containerID: "container",
+                sessionExpiration: '14400' // 4 hours
+        });
+    </script>
+</body>
+</html>>

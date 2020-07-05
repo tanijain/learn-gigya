@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Consent</title>
+    <script type="application/javascript"
+		src="https://socialize.login-seconnecter.ca/js/gigya.js?apikey=3_OpyagoDK701Lv3rCsHO3Pwsw8GU3Zr0T60XRNueQAiQkEMO-NEUT--9UnVfcub-m"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+		@keyframes rotate360 {
+			from {
+				transform: rotate(0deg);
+			}
+
+			to {
+				transform: rotate(360deg);
+			}
+		}
+
+		html {
+			font-size: 87.5%;
+			height: 100%;
+		}
+
+		body {
+			height: 100%;
+			margin: 0;
+		}	
+
+		.consent-display-none {
+			display: none !important
+		}	
+
+		#loading-spinner {
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		#loading-spinner:before,
+		#loading-spinner:after {
+				content: '';
+				display: block;
+				height: 4.5rem;
+				width: 4.5rem;
+				border-radius: 4.2rem;
+				position: absolute;
+				border-width: 0.36rem;
+				border-style: solid;
+		}
+			
+		#loading-spinner:before {
+				border-color: #DDDDDD;
+		}
+			
+		#loading-spinner:after {
+			animation: rotate360 0.6s linear infinite;
+			border-color: #444444 transparent transparent;
+			z-index: 1;
+		}
+	</style>	
+    <script type="application/javascript">
+    
+    $(document).ready(function () {
+			processConsent();
+		});
+		
+        function processConsent() {
+			let searchParams = new URLSearchParams(window.location.search);
+			let context = searchParams.get('context');
+			let clientID = searchParams.get('clientID');
+			let scope = searchParams.get('scope');
+			scope = scope.replace(/\+/gi, " ");
+			scope = scope.replace(/%2b/gi, " ");
+			let prompt = searchParams.get('prompt');
+			let display = searchParams.get('display');
+			let uid = searchParams.get('UID');
+			let uidSignature = searchParams.get('UIDSignature');
+			let signatureTimestamp = searchParams.get('signatureTimestamp');
+			let consentValue = true;
+			let consentObj = {
+				"scope": scope,
+				"clientID": clientID,
+				"context": context,
+				"UID": uid,
+				"consent": true
+			};
+
+			var constructSignature = '';
+
+			var consentJSON = JSON.stringify(consentObj);
+			var verifyConsentUrl = encodeURI("https://learn-gigya.herokuapp.com/signConsent");
+			var fullVerifyConsentUrl = verifyConsentUrl + "?consent=";
+
+			$.get(fullVerifyConsentUrl + consentJSON, function (data) {
+				const urlStr = 'proxy.html?mode=afterConsent&consent=' + encodeURIComponent(consentJSON) + '&sig=' + encodeURIComponent(data);
+				window.location.href = urlStr;
+			});
+
+		}
+
+	</script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>
+

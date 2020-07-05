@@ -1,4 +1,5 @@
 var path = require('path');
+var consentController = require("./Controller/consentController");
 
 module.exports = function(app){
 
@@ -18,8 +19,10 @@ module.exports = function(app){
         res.sendFile(path.join(__dirname + '/RelyingParty/index.html'));
     });
     
-    app.get('/Proxy', function(req, res) {
+    app.get('/proxy', function(req, res) {
         res.sendFile(path.join(__dirname + '/OIDC/proxy.html'));
     });
+
+    app.get('/signConsent', consentController.signConsent);
 
 }
