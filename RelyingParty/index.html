@@ -2,7 +2,6 @@
     <head>
         <title>Relying Party</title>
         
-        <script type="text/javascript" lang="javascript" src="http://cdn.gigya.com/JS/socialize.js?apikey=SITE_API_KEY"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
         <style>
@@ -57,13 +56,16 @@
 	            });
 
             })
-            
+
+            var newNonce=Date.now();
+            var authorizeEndpointLink="https://fidm.us1.gigya.com/oidc/op/v1.0/3_OpyagoDK701Lv3rCsHO3Pwsw8GU3Zr0T60XRNueQAiQkEMO-NEUT--9UnVfcub-m/authorize?client_id=3lLQEkRDIleQ_tsOy1diUbKH&response_type=code&redirect_uri=https%3A%2F%2Flearn-gigya.herokuapp.com%2FRelyingParty&scope=openid%20email%20profile&nonce=" + newNonce;
+
             function login(){
-                window.location.href = "https://fidm.us1.gigya.com/oidc/op/v1.0/3_OpyagoDK701Lv3rCsHO3Pwsw8GU3Zr0T60XRNueQAiQkEMO-NEUT--9UnVfcub-m/authorize"
+                window.location.href = authorizeEndpointLink;
             }
 
             function register(){
-                window.location.href = "https://fidm.us1.gigya.com/oidc/op/v1.0/3_OpyagoDK701Lv3rCsHO3Pwsw8GU3Zr0T60XRNueQAiQkEMO-NEUT--9UnVfcub-m/authorize"
+                window.location.href = authorizeEndpointLink;
             }
 
             function profile_update(){
