@@ -7,13 +7,14 @@ Steps to run the application on your local machine.
 
 2. Clone the Local_development branch to any folder.
 
-3. Open CMD Terminal.
+3. Open CMD Terminal
 
 4. Navigate to the directory where repository is cloned using "cd" command.
 
 5. In CMD Terminal type following commands:
-    a. npm install
-    b. npm start
+    a. npm install -g nodemon
+    b. npm install
+    c. nodemon server.js
    
 6. Open your browser of choice and type localhost:8080.
 
