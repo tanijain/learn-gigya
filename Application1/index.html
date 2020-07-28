@@ -3,33 +3,33 @@
         <title>Application 1</title>
         
         <script type="text/javascript" src="https://cdns.gigya.com/js/gigya.js?apiKey=3_OpyagoDK701Lv3rCsHO3Pwsw8GU3Zr0T60XRNueQAiQkEMO-NEUT--9UnVfcub-m"></script>
+        <!--Above we put in the API Key of the site whose screensets we want to host here -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="/css/application1.css">
         
         <script>
-            $(document).ready(function(){
-                
-                $('.logged-in').fadeOut(function () {
-					$('.logged-out').fadeIn();
+            $(document).ready(function(){//When the document is loaded    
+                $('.logged-in').fadeOut(function () { //disable all the buttons which should only be visible to logged-out users.
+					$('.logged-out').fadeIn(); // Enable all the buttons those should be visible to Logged-out users.
 					});
                 
-                gigya.accounts.getAccountInfo({callback:function (response) {
+                gigya.accounts.getAccountInfo({callback:function (response) {//Checking if user have a prior session available
 				if (response.errorCode == 0) {
 					  $('#profile-name').text("Welcome back " + response.profile.firstName + "!");
-					  $('.logged-out').fadeOut(function () {
-							  $('.logged-in').fadeIn();
+					  $('.logged-out').fadeOut(function () { //enable all the buttons which should only be visible to logged in users. 
+							  $('.logged-in').fadeIn(); //Disable all the buttons which should not be visible to logged in Users 
 					  });
                 }
                 }});
 
                 gigya.socialize.addEventHandlers({
-		            onLogin: loginHandler,
-				    onLogout: logoutHandler
+		            onLogin: loginHandler, //Mapped the function which have to be invoked in case of Login Event.
+				    onLogout: logoutHandler //Mapped the function which have to be invoked in case of Logout Event.
 	            });
 
             })
             
-            function login(){
+            function login(){ //loading login screen.
                 var params = {
                     screenSet: 'Default-RegistrationLogin',
                     startScreen: 'gigya-login-screen'
@@ -37,7 +37,7 @@
                 gigya.accounts.showScreenSet(params);
             }
 
-            function register(){
+            function register(){// loading registration screen.
                 var params = {
                     screenSet: 'Default-RegistrationLogin',
                     startScreen: 'gigya-register-screen'
@@ -45,7 +45,7 @@
                 gigya.accounts.showScreenSet(params);
             }
 
-            function profile_update(){
+            function profile_update(){// loading profile update screen.
                 var params = {
                     screenSet: 'Default-ProfileUpdate',
                     startScreen: 'gigya-update-profile-screen'
@@ -53,7 +53,7 @@
                 gigya.accounts.showScreenSet(params);
             }
 
-            function subscribe(){
+            function subscribe(){// loading Lite Registration Screen
                 var params = {
                     screenSet: 'Default-LiteRegistration',
                     startScreen: 'gigya-subscribe-with-email-screen'
@@ -61,7 +61,7 @@
                 gigya.accounts.showScreenSet(params);
             }
 
-            function logout(){
+            function logout(){//triggering Logout. 
                 gigya.accounts.logout();
             }
 
@@ -69,14 +69,14 @@
                 window.location.href = "http://localhost:8080/"
             }
             
-            function loginHandler(response){
+            function loginHandler(response){ //listen the login events and execute the required logic
                 var profile = response['user']; 
 		        $('#profile-name').text("Welcome " + profile.firstName + "!"); 
 		        $('.logged-out').fadeOut(function () {
 			    $('.logged-in').fadeIn(); });
             }
 
-            function logoutHandler(){
+            function logoutHandler(){//listen the logout event and execute the required logic
                 $('a#userFirstname').text('');
 			    $('.logged-in').fadeOut(function () {
 				$('.logged-out').fadeIn(); })
